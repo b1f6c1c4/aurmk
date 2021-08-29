@@ -2,6 +2,20 @@
 
 set -eu
 
+usage() {
+    cat - <<EOF
+aurmk: Dockerized AUR builder
+
+Usage: aurmk [-h|--help] [-j <parallel>] [-C <chdir>]
+             [<pkgname>] [<makepkg.8-options>...]
+
+       Build an AUR package into <chdir>.
+
+Note: If <chdir>/PKGBUILD exists, <pkgname> must not be supplied.
+      If <chdir>/PKGBUILD doesn't exist, <pkgname> must be supplied.
+EOF
+}
+
 PARALLEL="$(grep -c ^processor /proc/cpuinfo)"
 while [ "$#" -gt 0 ]; do
     if [ "$1" = "-C" ]; then
@@ -12,6 +26,12 @@ while [ "$#" -gt 0 ]; do
         shift
         PARALLEL="$1"
         shift
+    elif [ "$1" = "-h" ]; then
+        usage
+        exit 0
+    elif [ "$1" = "--help" ]; then
+        usage
+        exit 0
     elif [[ "$1" =~ ^-j ]]; then
         PARALLEL="${1##-j}"
         shift

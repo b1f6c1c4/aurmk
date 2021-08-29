@@ -1,8 +1,8 @@
-# aurmk: dockerized AUR builder
+# aurmk: Dockerized AUR builder
 
 > Run makepkg(8) in docker
 
-## Usage
+## TL;DR
 
 1. Just build an AUR package:
 
@@ -29,6 +29,20 @@
 ## Requirements
 
 It depends on docker. If you need `sudo` to run `docker`, prefix `aurmk` with `sudo`.
+
+## Usage
+
+```
+aurmk: Dockerized AUR builder
+
+Usage: aurmk [-h|--help] [-j <parallel>] [-C <chdir>]
+             [<pkgname>] [<makepkg.8-options>...]
+
+       Build an AUR package into <chdir>.
+
+Note: If <chdir>/PKGBUILD exists, <pkgname> must not be supplied.
+      If <chdir>/PKGBUILD doesn't exist, <pkgname> must be supplied.
+```
 
 ## License
 
