@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$1" = "-C" ]; then
+    shift
+    cd "$1" || exit 1
+    shift
+fi
+
+docker run --rm -v "$PWD:/home/builder" b1f6c1c4/aur-cont-builder "$@"
