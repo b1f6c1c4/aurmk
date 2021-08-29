@@ -1,18 +1,26 @@
-# AUR Containerized Builder
+# aurmk: dockerized AUR builder
 
-> A clean way to run makepkg(8)
+> Run makepkg(8) in docker
 
-## The easy way
+1. Just build an AUR package:
 
-```bash
-docker run --rm -v .:/home/builder b1f6c1c4/aur-cont-builder <pkgname>
-sudo pacman -U <pkgname>/<pkgname>-<pkgver>-<pkgrel>-<arch>.pkg.tar.zst
-```
+    ```bash
+    aurmk <pkgname>
+    sudo pacman -U <pkgname>-*.pkg.tar.zst
+    ```
 
-## The traditional way
+1. Build an AUR package into another directory:
 
-```bash
-git clone https://aur.archlinux.org/<pkgname>.git
-docker run --rm -v <pkgname>:/home/builder b1f6c1c4/aur-cont-builder
-sudo pacman -U <pkgname>/<pkgname>-<pkgver>-<pkgrel>-<arch>.pkg.tar.zst
-```
+    ```bash
+    aurmk -C <dir> <pkgname>
+    sudo pacman -U <dir>/<pkgname>-*.pkg.tar.zst
+    ```
+
+1. Run `makepkg(8)` safely and directly:
+
+    ```bash
+    git clone <repo> <dir>
+    aurmk -C <dir> [<makepkg.8-options>...]
+    sudo pacman -U <dir>/<pkgname>-*.pkg.tar.zst
+    ```
+
