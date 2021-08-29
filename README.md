@@ -2,6 +2,8 @@
 
 > Run makepkg(8) in docker
 
+## Usage
+
 1. Just build an AUR package:
 
     ```bash
@@ -24,3 +26,10 @@
     sudo pacman -U <dir>/<pkgname>-*.pkg.tar.zst
     ```
 
+## Requirements
+
+It depends on docker. If you need `sudo` to run `docker`, prefix `aurmk` with `sudo`.
+
+## License
+
+MIT
