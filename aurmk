@@ -1,9 +1,34 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ "$1" = "-C" ]; then
-    shift
-    cd "$1" || exit 1
-    shift
-fi
+set -eu
 
-docker run --rm -v "$PWD:/home/builder" b1f6c1c4/aur-cont-builder "$@"
+PARALLEL="$(grep -c ^processor /proc/cpuinfo)"
+while [ "$#" -gt 0 ]; do
+    if [ "$1" = "-C" ]; then
+        shift
+        cd "$1"
+        shift
+    elif [ "$1" = "-j" ]; then
+        shift
+        PARALLEL="$1"
+        shift
+    elif [[ "$1" =~ ^-j ]]; then
+        PARALLEL="${1##-j}"
+        shift
+    else
+        break
+    fi
+done
+
+ARGS=(docker run --rm)
+[ -t 1 ] && ARGS+=(-t)
+
+ARGS+=(-v "$PWD:/home/builder")
+ARGS+=(-e "PARALLEL=$PARALLEL")
+ARGS+=(b1f6c1c4/aurmk "$@")
+
+printf '\e[36m'
+printf '%s ' "${ARGS[@]}"
+printf '\e[0m\n'
+
+exec "${ARGS[@]}"

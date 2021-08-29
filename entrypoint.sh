@@ -4,6 +4,10 @@ set -eu
 
 sudo pacman -Syu --noconfirm
 
+printf "\e[36m"
+echo "MAKEFLAGS=\"-j$PARALLEL\"" | sudo tee -a /etc/makepkg.conf
+printf "\e[0m"
+
 [ -f PKGBUILD ] && exec /usr/bin/makepkg -s --noconfirm "$@"
 
 sudo pacman -S git --noconfirm
