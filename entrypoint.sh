@@ -2,13 +2,16 @@
 
 set -eu
 
-sudo pacman -Syu --noconfirm
-
-if [ -n "${PARALLEL+x}" ]; then
+if [ "${PARALLEL-auto}" = auto ]; then
+    PARALLEL="$(grep -c ^processor /proc/cpuinfo)"
+fi
+if [ -n "$PARALLEL" ]; then
     printf "\e[36m"
     echo "MAKEFLAGS=\"-j$PARALLEL\"" | sudo tee -a /etc/makepkg.conf
     printf "\e[0m"
 fi
+
+sudo pacman -Syu --noconfirm
 
 [ -f PKGBUILD ] && exec /usr/bin/makepkg -s --noconfirm "$@"
 
