@@ -28,7 +28,8 @@
 
 ## Requirements
 
-It depends on docker. If you need `sudo` to run `docker`, prefix `aurmk` with `sudo`.
+* It depends on docker. If you need `sudo` to run `docker`, prefix `aurmk` with `sudo`.
+* `<dir>` shall have UID 1000.
 
 ## Usage
 
