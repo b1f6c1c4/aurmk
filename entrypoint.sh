@@ -19,7 +19,7 @@ T="$(mktemp -d)"
 O="$PWD"
 sudo pacman -S git --noconfirm
 git clone --depth=1 "https://aur.archlinux.org/$1.git" "$T"
-sudo pacman -Rs git --noconfirm
+sudo pacman -Rsu git --noconfirm
 
 (cd "$T" && /usr/bin/makepkg -s --noconfirm && mv ./*.pkg.tar.zst "$O")
 
