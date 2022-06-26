@@ -13,6 +13,12 @@ fi
 
 sudo pacman -Syu --noconfirm
 
+set -x
+printf "\e[36m" >&2
+sudo pacman -U --noconfirm prep/*.pkg.tar.zst || true
+printf "\e[0m" >&2
+set +x
+
 [ -f PKGBUILD ] && exec /usr/bin/makepkg -s --noconfirm "$@"
 
 T="$(mktemp -d)"

@@ -40,6 +40,7 @@ Usage: aurmk [-h|--help] [-j <parallel>] [-C <chdir>]
              [<pkgname>] [<makepkg.8-options>...]
 
        Build an AUR package into <chdir>.
+       Packages in <chdir>/prep/ will be installed before building.
 
 Note: If <chdir>/PKGBUILD exists, <pkgname> must not be supplied.
       If <chdir>/PKGBUILD doesn't exist, <pkgname> must be supplied.
